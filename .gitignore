@@ -1,0 +1,45 @@
+# Python
+venv/
+.venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build
+build/
+dist/
+*.spec
+*.dmg
+*.ipa
+*.xcarchive
+
+# Xcode / iOS
+DerivedData/
+.build/
+
+# Local config & secrets
+config.json
+settings.json
+.local/
+secrets/
+*.pem
+*.key
+*.p12
+*.p8
+*.crt
+*.cer
+*.mobileprovision
+
+# Runtime data
+.myvpn/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.history/
