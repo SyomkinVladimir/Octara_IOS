@@ -1,4 +1,6 @@
+from profile import Profile
 import unittest
+from shared.models.profile import Profile
 
 from shared.profile_parser.vless_parser import parse_vless_url
 
@@ -33,6 +35,18 @@ class TestVlessParser(unittest.TestCase):
             parse_vless_url(
                 "vless://123e4567-e89b-12d3-a456-426614174000@example.com?security=reality#NoPort"
             ) 
+    def test_profile_rejects_empty_uuid(self):
+        with self.assertRaises(ValueError):
+            Profile(uuid="", address="example.com", port=443)    
+    
+    def test_rejects_url_with_non_numeric_port(self):
+        with self.assertRaises(ValueError):
+            parse_vless_url(
+                "vless://123e4567-e89b-12d3-a456-426614174000@example.com:abc?security=reality#BadPort"
+            )
+    def test_profile_rejects_empty_address(self):
+        with self.assertRaises(ValueError):
+            Profile(uuid="123e4567-e89b-12d3-a456-426614174000", address="", port=443)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,10 @@ from urllib.parse import urlsplit, parse_qs, unquote
 from shared.models.profile import Profile
 
 
+def _get_first(query: dict, key: str) -> str:
+    return query.get(key, [""])[0]
+
+
 def parse_vless_url(url: str) -> Profile:
     if not url.startswith("vless://"):
         raise ValueError("Only vless:// URLs are supported")
@@ -25,13 +29,13 @@ def parse_vless_url(url: str) -> Profile:
         address=address,
         port=int(port_text),
         remark=unquote(parsed.fragment),
-        network=query.get("type", [""])[0],
-        security=query.get("security", [""])[0],
-        path=query.get("path", [""])[0],
-        host=query.get("host", [""])[0],
-        sni=query.get("sni", [""])[0],
-        flow=query.get("flow", [""])[0],
-        fingerprint=query.get("fp", [""])[0],
-        public_key=query.get("pbk", [""])[0],
-        short_id=query.get("sid", [""])[0],
+        network=_get_first(query, "type"),
+        security=_get_first(query, "security"),
+        path=_get_first(query, "path"),
+        host=_get_first(query, "host"),
+        sni=_get_first(query, "sni"),
+        flow=_get_first(query, "flow"),
+        fingerprint=_get_first(query, "fp"),
+        public_key=_get_first(query, "pbk"),
+        short_id=_get_first(query, "sid"),
     )
